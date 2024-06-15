@@ -154,7 +154,8 @@ async def cleanup_response(
 async def post_streaming_url(url: str, payload: str):
     r = None
     try:
-        session = aiohttp.ClientSession(trust_env=True)
+        timeout = aiohttp.ClientTimeout(total=1800)  # Set the timeout
+        session = aiohttp.ClientSession(timeout=timeout,trust_env=True)
         r = await session.post(url, data=payload)
         r.raise_for_status()
 
